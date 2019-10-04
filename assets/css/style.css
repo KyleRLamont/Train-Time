@@ -1,16 +1,27 @@
 body{
     font-family: 'Merriweather', serif;
     padding: 5px;
-    
+    background-image: url("../images/traintracks.jpg");
 }
 
 
 .container{
     margin-bottom: 10px;
-    
 }
 
 .form-group{
     padding: 12px;
 }
 
+.table-responsive{
+    background-color: rgba(255, 255, 255, 0.750);
+    color: black;
+}
+
+#header{
+    background-color: rgba(45, 126, 233, 0.75);
+}
+
+.card{
+    background-color: rgba(255, 255, 255, 0.75)
+}
