@@ -18,8 +18,8 @@ $(document).ready(function () {
 
         var trainname = $("#name-input").val().trim();
         var traindest = $("#destination-input").val().trim();
-        var traintime = moment($("#time-input").val().trim(), "HH:mm").format("X");
-        var trainfreq = $("#freq-input").val();
+        var traintime = $("#time-input").val().trim();
+        var trainfreq = $("#freq-input").val().trim();
 
         var newtrain = {
             name: trainname,
@@ -56,27 +56,34 @@ $(document).ready(function () {
         console.log(traintime);
         console.log(trainfreq);
 
-        //var empStartPretty = moment.unix(empStart).format("MM/DD/YYYY");
+        var firstTime = traintime
 
-        // Calculate the months worked using hardcore math
-        // To calculate the months worked
-        //var empMonths = moment().diff(moment(empStart, "X"), "months");
-        //console.log(empMonths);
+        var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
+        console.log(firstTimeConverted);
 
-        // Calculate the total billed rate
-        //var empBilled = empMonths * empRate;
-        //console.log(empBilled);
+        var currentTime = moment();
+        console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
 
-        // Create the new row
+        var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+        console.log("DIFFERENCE IN TIME: " + diffTime);
+
+        var tRemainder = diffTime % trainfreq;
+        console.log(tRemainder);
+
+        var tMinutesTillTrain = trainfreq - tRemainder;
+        console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+
+        var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+        console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+
         var newRow = $("<tr>").append(
             $("<td class='bg-transparent'>").text(trainname),
             $("<td class='bg-transparent'>").text(traindest),
             $("<td class='bg-transparent'>").text(trainfreq),
-            //$("<td>").text(traintime),
-            //$("<td>").text(trainmin),
+            $("<td class='bg-transparent'>").text(moment(nextTrain).format("hh:mm A")),
+            $("<td class='bg-transparent'>").text(tMinutesTillTrain),
         );
 
-        // Append the new row to the table
         $("#train-table > tbody").append(newRow);
     });
 });
